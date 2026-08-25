@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Поймай квадрат</title>
+  <style>
+    body {
+      margin: 0;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: #202124;
+      color: white;
+    }
+
+    #game {
+      position: relative;
+      width: 600px;
+      height: 400px;
+      margin: 20px auto;
+      background: #303134;
+      border: 3px solid #00d4ff;
+      overflow: hidden;
+    }
+
+    #square {
+      position: absolute;
+      width: 45px;
+      height: 45px;
+      background: #ff3b30;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Поймай квадрат</h1>
+  <p>Очки: <span id="score">0</span></p>
+  <button onclick="startGame()">Начать игру</button>
+
+  <div id="game">
+    <div id="square" onclick="catchSquare()"></div>
+  </div>
+
+  <script>
+    const square = document.getElementById("square");
+    const scoreText = document.getElementById("score");
+
+    let score = 0;
+    let gameStarted = false;
+
+    function moveSquare() {
+      const maxX = 600 - 45;
+      const maxY = 400 - 45;
+
+      square.style.left = Math.random() * maxX + "px";
+      square.style.top = Math.random() * maxY + "px";
+    }
+
+    function catchSquare() {
+      if (!gameStarted) return;
+
+      score++;
+      scoreText.textContent = score;
+      moveSquare();
+    }
+
+    function startGame() {
+      score = 0;
+      scoreText.textContent = score;
+      gameStarted = true;
+      moveSquare();
+
+      setTimeout(() => {
+        gameStarted = false;
+        alert("Игра окончена! Твой результат: " + score);
+      }, 30000);
+    }
+
+    moveSquare();
+  </script>
+</body>
+</html>
